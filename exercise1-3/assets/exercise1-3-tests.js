@@ -1,4 +1,4 @@
-import { TestResults, TestSquare, advanceToFrame, checkBackgroundIsCalledInDraw, getShapes, testHasShape, testShapesMatchWithoutOrder, canvasStatus } from "../../lib/test-utils.js";
+import { TestResults, TestSquare, advanceToFrame, checkBackgroundIsCalledInDraw, getShapes, testHasShape, testShapesMatchWithoutOrder, canvasStatus, simulateMousePosition } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -20,13 +20,14 @@ function testCanvas() {
     }
 }
 
-function testFrame(eX, eY) {
+async function testFrame(eX, eY) {
     const centreSq = new TestSquare(eX, eY, 100, CENTER);
     const leftSq = new TestSquare(eX - 100, eY - 100, 100, CENTER);
     const rightSq = new TestSquare(eX + 100, eY + 100, 100, CENTER);
-    mouseX = eX;
-    mouseY = eY;
-    advanceToFrame(frameCount + 1);
+    // mouseX = eX;
+    // mouseY = eY;
+    simulateMousePosition(eX, eY);
+    await advanceToFrame(frameCount + 1);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
@@ -62,9 +63,9 @@ async function runTests(canvas) {
     if (actualShapes.length === 0) {
         TestResults.addFail("Expected 3 squares, 0 shapes found. Not running any more tests.")
     } else {
-        testFrame(0, 0);
-        testFrame(width / 2, height / 2);
-        testFrame(200, 300);
+        await testFrame(0, 0);
+        await testFrame(width / 2, height / 2);
+        await testFrame(200, 300);
         // Check that one is under the mouse
         // Check the other two are diagonally across
         // Check that all shapes actually move

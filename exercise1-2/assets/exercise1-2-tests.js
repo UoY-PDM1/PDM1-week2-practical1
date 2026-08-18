@@ -1,4 +1,4 @@
-import { TestRectangle, TestResults, getShapes, testHasShape, testShapesMatchWithoutOrder, canvasStatus } from "../../lib/test-utils.js";
+import { TestRectangle, TestResults, getShapes, testHasShape, testShapesMatchWithoutOrder, canvasStatus } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -62,14 +62,17 @@ async function runTests(canvas) {
         matchRectangles(actualShapes);
         if (chosenWidth !== 600 || chosenHeight !== 600) {
             resizeCanvas(600, 600);
+            await redraw();
             matchRectangles(getShapes());
         }
         if (chosenWidth !== 550 || chosenHeight !== 100) {
             resizeCanvas(550, 100);
+            await redraw();
             matchRectangles(getShapes());
         }
         if (chosenWidth !== 273 || chosenHeight !== 412) {
             resizeCanvas(273, 412);
+            await redraw();
             matchRectangles(getShapes());
         }
     }

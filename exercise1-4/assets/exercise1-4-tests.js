@@ -1,5 +1,5 @@
-import {checkCanvasSize, 
-        getShapes, TestResults, advanceToFrame, TestRectangle, checkBackgroundIsCalledInDraw, testShapesMatchInOrder, canvasStatus } from "../../lib/test-utils.js";
+import {checkCanvasSize, simulateMousePosition,
+        getShapes, TestResults, advanceToFrame, TestRectangle, checkBackgroundIsCalledInDraw, testShapesMatchInOrder, canvasStatus } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -12,10 +12,11 @@ function waitForP5() {
     }
 }
 
-function testFrame(eX, eY) {
-    mouseX = eX;
-    mouseY = eY;
-    advanceToFrame(frameCount+1);
+async function testFrame(eX, eY) {
+    // mouseX = eX;
+    // mouseY = eY;
+    simulateMousePosition(eX, eY);
+    await advanceToFrame(frameCount+1);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
@@ -45,9 +46,9 @@ async function runTests(canvas) {
         TestResults.addFail("Expected 1 rectangle. No shapes have been drawn. Not running any further tests.");
     }
     else {
-        testFrame(300, 300);
-        testFrame(0, 160);
-        testFrame(400, 10);
+        await testFrame(300, 300);
+        await testFrame(0, 160);
+        await testFrame(400, 10);
     }
     TestResults.display(resultsDiv);
 }
