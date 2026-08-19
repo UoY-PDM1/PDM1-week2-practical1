@@ -29,11 +29,11 @@ async function shapeTests() {
         if (expectedRect00.isEqualTo(actualShapes[0], true)) {
             TestResults.addPass("When the mouse is at 0, 0, there is one rectangle at position 0, 0 with a width of 0 and a height of 0");
         } else {
-            TestResults.addFail(`When the mouse is at 0, 0, there should be one rectangle at position 0, 0 with a width of 0 and a height of 0. You sketch contains one ${actualShapes[0].type} at position ${actualShapes[0].x}, ${actualShapes[0].y} with a width of ${actualShapes[0].w} and a height of ${actualShapes[0].h}`);
+            TestResults.addFail(`When the mouse is at 0, 0, there should be one rectangle at position 0, 0 with a width of 0 and a height of 0. Your sketch contains one ${actualShapes[0].type} at position ${actualShapes[0].x}, ${actualShapes[0].y} with a width of ${actualShapes[0].w} and a height of ${actualShapes[0].h}`);
         }
     }
     // move mouse
-    simulateMousePosition(325, 300);
+    simulateMousePosition(325, 200);
     await advanceToFrame(3);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
@@ -47,9 +47,9 @@ async function shapeTests() {
         }
     } else {
         if (expectedRectMoveRight.isEqualTo(actualShapes[0], true)) {
-            TestResults.addPass("When the mouse is at 325, 200, there is one rectangle at position 0, 0 with a width of 300 and a height of 200");
+            TestResults.addPass("When the mouse is at 325, 200, there is one rectangle at position 0, 0 with a width of 325 and a height of 200");
         } else {
-            TestResults.addFail(`When the mouse is at 325, 200, there should be one rectangle at position 0, 0 with a width of 300 and a height of 200. You sketch contains one ${actualShapes[0].type} at position ${actualShapes[0].x}, ${actualShapes[0].y} with a width of ${actualShapes[0].w} and a height of ${actualShapes[0].h}`);
+            TestResults.addFail(`When the mouse is at 325, 200, there should be one rectangle at position 0, 0 with a width of 325 and a height of 200. Your sketch contains one ${actualShapes[0].type} at position ${actualShapes[0].x}, ${actualShapes[0].y} with a width of ${actualShapes[0].w} and a height of ${actualShapes[0].h}`);
         }
     }
 }
